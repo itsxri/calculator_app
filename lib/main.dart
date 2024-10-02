@@ -62,7 +62,6 @@ class _CalculatorHomeState extends State<CalculatorHome> {
     );
   }
 
-  // Helper method to create button rows
   Widget _buildButtonRow(List<String> buttons) {
     return Expanded(
       child: Row(
@@ -74,7 +73,6 @@ class _CalculatorHomeState extends State<CalculatorHome> {
     );
   }
 
-  // Helper method to create individual buttons
   Widget _buildButton(String buttonText) {
     return Expanded(
       child: ElevatedButton(
@@ -89,54 +87,49 @@ class _CalculatorHomeState extends State<CalculatorHome> {
     );
   }
 
-  // Logic for button presses
   void buttonPressed(String buttonText) {
-    if (buttonText == "C") {
-      // Reset the calculator
-      _output = "0";
-      _num1 = 0;
-      _num2 = 0;
-      _operand = "";
-      _hasDecimal = false;
-    } else if (buttonText == "." && !_hasDecimal) {
-      // Handle decimal point input
-      _output += ".";
-      _hasDecimal = true;
-    } else if (buttonText == "+" || buttonText == "-" || buttonText == "*" || buttonText == "/") {
-      // Set the operand and first number
-      _num1 = double.parse(_output);
-      _operand = buttonText;
-      _output = "0";
-      _hasDecimal = false; // Reset decimal flag for the next number
-    } else if (buttonText == "=") {
-      // Perform the calculation
-      _num2 = double.parse(_output);
-      switch (_operand) {
-        case "+":
-          _output = (_num1 + _num2).toString();
-          break;
-        case "-":
-          _output = (_num1 - _num2).toString();
-          break;
-        case "*":
-          _output = (_num1 * _num2).toString();
-          break;
-        case "/":
-          _output = _num2 != 0 ? (_num1 / _num2).toString() : "Error"; // Handle division by zero
-          break;
-      }
-      _num1 = 0;
-      _num2 = 0;
-      _operand = "";
-      _hasDecimal = false;
-    } else {
-      // Handle number input
-      if (buttonText != ".") {
-        _output += buttonText;
-      }
-    }
     setState(() {
-      _output = double.parse(_output).toString(); // Update the display
+      if (buttonText == "C") {
+        _output = "0";
+        _num1 = 0;
+        _num2 = 0;
+        _operand = "";
+        _hasDecimal = false;
+      } else if (buttonText == "." && !_hasDecimal) {
+        _output += ".";
+        _hasDecimal = true;
+      } else if (buttonText == "+" || buttonText == "-" || buttonText == "*" || buttonText == "/") {
+        _num1 = double.parse(_output);
+        _operand = buttonText;
+        _output = "0";
+        _hasDecimal = false;
+      } else if (buttonText == "=") {
+        _num2 = double.parse(_output);
+        switch (_operand) {
+          case "+":
+            _output = (_num1 + _num2).toString();
+            break;
+          case "-":
+            _output = (_num1 - _num2).toString();
+            break;
+          case "*":
+            _output = (_num1 * _num2).toString();
+            break;
+          case "/":
+            _output = _num2 != 0 ? (_num1 / _num2).toString() : "Error"; // Handle division by zero
+            break;
+        }
+        _num1 = 0;
+        _num2 = 0;
+        _operand = "";
+        _hasDecimal = false;
+      } else {
+        if (_output == "0") {
+          _output = buttonText;
+        } else {
+          _output += buttonText;  // Appending input to current number
+        }
+      }
     });
   }
 }
