@@ -33,7 +33,17 @@ class _CalculatorHomeState extends State<CalculatorHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Calculator")),
+      backgroundColor: Colors.blue[100],  // Light blue background
+      appBar: AppBar(
+        title: Text(
+          "Calculator",
+          style: TextStyle(
+            fontSize: 28,  // Larger font size
+            fontWeight: FontWeight.bold,  // Bold font
+          ),
+        ),
+        centerTitle: true,  // Center the title
+      ),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -116,7 +126,7 @@ class _CalculatorHomeState extends State<CalculatorHome> {
             _output = (_num1 * _num2).toString();
             break;
           case "/":
-            _output = _num2 != 0 ? (_num1 / _num2).toString() : "Error"; // Handle division by zero
+            _output = _num2 != 0 ? (_num1 / _num2).toString() : "Error";
             break;
         }
         _num1 = 0;
@@ -127,7 +137,7 @@ class _CalculatorHomeState extends State<CalculatorHome> {
         if (_output == "0") {
           _output = buttonText;
         } else {
-          _output += buttonText;  // Appending input to current number
+          _output += buttonText;
         }
       }
     });
