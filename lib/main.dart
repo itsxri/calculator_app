@@ -25,7 +25,11 @@ class CalculatorHome extends StatefulWidget {
 }
 
 class _CalculatorHomeState extends State<CalculatorHome> {
-  String output = "0";
+  String output = "0"; //current number/outpu
+  String _operand = ""; //stores operator
+  double _num1 = 0.0; //first operand
+  double _num2 = 0.0; //second operand
+  bool _hasDecimal = false; //flad to track if a decimal has been entered
 }
 
 @override
